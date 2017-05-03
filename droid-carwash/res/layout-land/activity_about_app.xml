@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/aboutImageView" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:src="@drawable/logo2"/>
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" android:layout_below="@+id/aboutImageView"
+            android:layout_marginTop="50dp" android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="МойCAR"
+                    android:id="@+id/textView2" android:textSize="36dp"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Версия 1.0.0 (beta)"
+                    android:id="@+id/textView3" android:layout_marginTop="10dp"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Бесплатная лицензия (GPL)"
+                    android:id="@+id/textView4"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Разработал AVKcorporatin 2017"
+                    android:id="@+id/textView5" android:layout_marginTop="10dp"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="На самом деле в данном примере хотелось показать стек Android+MySQL и простейший вариант сессии пользователя. Особенностью Данного проекта является именно такой тип связи с БД"
+                    android:id="@+id/textView6" android:layout_marginTop="10dp" android:textSize="18dp"/>
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

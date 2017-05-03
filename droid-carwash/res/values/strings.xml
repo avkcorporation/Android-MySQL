@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">МОЙCAR</string>
+    <string name="app_about">О ПРОГРАММЕ</string>
+    <string name="action_settings">Меню</string>
+    <string name="debit_title">ДОХОД</string>
+    <string name="credit_title">РАСХОД</string>
+    <string name="total_title">ИТОГО</string>
+
+</resources>

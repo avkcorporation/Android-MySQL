@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:background="#ffffffff">
+
+    <RelativeLayout
+            android:layout_width="290dp"
+            android:layout_height="300dp" android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" android:background="#ffc7c6d2">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Авторизация"
+                android:id="@+id/authNameTextView"
+                android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:textSize="36dp"
+                android:layout_marginTop="10dp" android:layout_marginBottom="20dp" android:textColor="#ff626262"/>
+        <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true" android:layout_below="@+id/authNameTextView">
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Логин"
+                        android:id="@+id/logInTextView"/>
+            </TableRow>
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/logInEditText" android:autoText="false" android:textSize="24dp"
+                        android:maxLength="25" android:background="#FF626262"/>
+            </TableRow>
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Пароль"
+                        android:id="@+id/pswdTextView"/>
+            </TableRow>
+            <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:ems="10"
+                        android:id="@+id/pswdEditText" android:textSize="24dp" android:maxLength="25"
+                        android:background="#ff626262"/>
+            </TableRow>
+        </TableLayout>
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:text="Войти"
+                android:id="@+id/sigInBtn"
+                android:textSize="36dp" android:layout_alignParentBottom="true" android:layout_alignParentRight="true"
+                android:textColor="#FF626262"/>
+    </RelativeLayout>
+</RelativeLayout>
