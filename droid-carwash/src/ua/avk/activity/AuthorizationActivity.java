@@ -5,16 +5,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.SQLException;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import ua.avk.R;
-import ua.avk.dao.Callback;
+import ua.avk.dao.CallbackDAO;
 import ua.avk.dao.IAccountDAO;
 import ua.avk.entitys.Account;
+import ua.avk.services.CallbackServices;
+import ua.avk.services.IAccountSrv;
 import ua.avk.services.Session;
 
 /**
@@ -33,6 +39,7 @@ public class AuthorizationActivity extends Activity {
     protected Account account = null;
     protected String logInStr = null;
     protected String pswdStr = null;
+    private final Context context = this;
 
     /**
      * Called when the activity is first created.
@@ -57,33 +64,43 @@ public class AuthorizationActivity extends Activity {
                 EditText pswdEditText = (EditText) findViewById(R.id.pswdEditText);
                 pswdStr = pswdEditText.getText().toString();
 
-                if (!pswdStr.equals("") & !logInStr.equals("")) {
-                    Thread t = new Thread() {
-                        @Override
-                        public void run() {
-                            IAccountDAO accountDAO = Callback.getAccountDAO();
-                            account = accountDAO.getByLogInAndPassword(logInStr, pswdStr);
-                            session.createUserSession(account);
-
-                            if (account.getRole() == 1) {
-                                mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-                                Intent intent = new Intent(AuthorizationActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            } else {
-
-                                Log.i(TAG, "Получено исключение: Role not 1");
-                                Intent intent = new Intent(AuthorizationActivity.this, AuthorizationActivity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    };
-                    t.start();
+                if (!pswdStr.isEmpty() & !logInStr.isEmpty()) {
+                    final String[] param = {logInStr, pswdStr};
+                    Connect task = new Connect();
+                    task.execute(param);
                 } else {
-                    Log.i(TAG, "Message: logIn or Pswd = isEmpty");
+                    Toast.makeText(context, "Вы не ввели данные", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
 
     }
+
+    private class Connect extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... param) {
+            IAccountDAO accountDAO = CallbackDAO.getAccountDAO();
+            account = accountDAO.getByLogInAndPassword(param[0], param[1]);
+            if (account != null) {
+                session = new Session((Activity) context);
+                session.createUserSession(account);
+                Log.i(TAG, "Сессия пользлвателя - открыта");
+                Intent intent = new Intent(AuthorizationActivity.this, MainActivity.class);
+                startActivity(intent);
+                return "Доступ получен!";
+
+            } else {
+
+                return "Message: Нет доступа";
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Log.i(TAG, result);
+        }
+    }
+
 }
