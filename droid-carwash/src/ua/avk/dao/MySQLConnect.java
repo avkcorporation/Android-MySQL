@@ -1,26 +1,13 @@
-package ua.avk.dao;
-
-import android.os.AsyncTask;
-import android.util.Log;
-import ua.avk.entitys.Account;
-
-import java.sql.*;
-import java.util.List;
-
-/**
- * Created by Галя on 21.04.2017.
- */
-
 /**
  * @author Alexander Kononenko
  * @version 1.0.0
- * @date 19.04.2017.
  */
-abstract class MySQLConnect extends AsyncTask<String, Void, Void> {
+abstract class MySQLConnect{
     protected final String TAG = this.getClass().getSimpleName();
     private static final String URL = "jdbc:mysql://host:port/db";
     private static final String USER = "user";
     private static final String PSWD = "password";
+
 
     // JDBC variables for opening and managing connection
     protected static Connection con;
@@ -32,8 +19,11 @@ abstract class MySQLConnect extends AsyncTask<String, Void, Void> {
     public MySQLConnect() {
     }
 
-    @Override
-    public Void doInBackground(String... params) {
+
+    /**
+     * Open connection
+     */
+    public void openConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             con = DriverManager.getConnection(URL, USER, PSWD);
@@ -41,17 +31,6 @@ abstract class MySQLConnect extends AsyncTask<String, Void, Void> {
         } catch (Exception e) {
             Log.e(TAG, "MySQLConnection doInBackground: ", e);
         }
-        return null;
-    }
-
-
-    /**
-     * Open connection
-     */
-    public void openConnection() {
-
-        doInBackground();
-
     }
 
     /**
@@ -60,10 +39,6 @@ abstract class MySQLConnect extends AsyncTask<String, Void, Void> {
     public void closeAllConnection() {
         try {
             con.close();
-        } catch (SQLException ex) {
-            Log.e(TAG, "Получено исключение", ex);
-        }
-        try {
             stmt.close();
         } catch (SQLException ex) {
             Log.e(TAG, "Получено исключение", ex);
@@ -76,15 +51,7 @@ abstract class MySQLConnect extends AsyncTask<String, Void, Void> {
     public void closeAllConnection(ResultSet rs) {
         try {
             con.close();
-        } catch (SQLException ex) {
-            Log.e(TAG, "Получено исключение", ex);
-        }
-        try {
             stmt.close();
-        } catch (SQLException ex) {
-            Log.e(TAG, "Получено исключение", ex);
-        }
-        try {
             rs.close();
         } catch (SQLException ex) {
             //System.out.print("SQL-CLOSE-RESULTSET-Exception: " + ex.getMessage());
@@ -133,7 +100,7 @@ abstract class MySQLConnect extends AsyncTask<String, Void, Void> {
         try {
             rs = stmt.executeQuery(query);
         } catch (SQLException ex) {
-            Log.e(TAG, "Получено исключение", ex);
+            Log.e(TAG, "Получено исключение: createSelect()", ex);
         }
 
         return rs;
@@ -151,7 +118,7 @@ abstract class MySQLConnect extends AsyncTask<String, Void, Void> {
             res = stmt.executeUpdate(query);
 
         } catch (SQLException ex) {
-            Log.e(TAG, "Получено исключение", ex);
+            Log.e(TAG, "Получено исключение: createOtherQuery()", ex);
         }
 
         return res;
@@ -163,7 +130,7 @@ abstract class MySQLConnect extends AsyncTask<String, Void, Void> {
      * @param resultSet object
      * @return list object
      */
-    abstract public List<Account> convertResultSetToList(ResultSet resultSet);
+    abstract public List convertResultSetToList(ResultSet resultSet);
 
 }
 
